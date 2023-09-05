@@ -29,64 +29,40 @@ import sqlite3
 import datetime
 
 class SongQueryRecord:
-    id:int
     date:str
     member:str
+    link:str
     song_name:str
     detail:str
-    cover:int
 
     def __init__(
             self,
-            id:int,
             date:str,
             member:str,
+            link:str,
             song_name:str,
             detail:str,
-            cover:int
     ):
-        self.id = id
         self.date =date
         self.member = member
+        self.link = link
         self.song_name = song_name
         self.detail = detail
-        self.cover = cover
 
     def __str__(self):
         return {
-            f"Id:{self.id}\n"
             f"Date:{self.date}\n"
             f"Member:{self.member}\n"
+            f"Link:{self.link}\n"
             f"SongName:{self.song_name}\n"
             f"Detail:{self.detail}\n"
-            f"Cover:{self.cover}"
         }
     
     def __dict__(self):
         return {
-            "id":self.id,
             "date":self.date,
             "member":self.member,
+            "link":self.link,
             "songName":self.song_name,
-            "detail":self.detail,
-            "cover":self.cover
-        }
-    
-class SongLink:
-    id:int      #SongQueryRecordと共通
-    link:str    #動画リンク
-    tag:str     #動画・CD・ダウンロード/ストリーミング
-    title:str   #YouTube?niconico?
-
-    def __str__(self):
-        # オブジェクトの文字列表現をカスタマイズ
-        return f"id={self.id}, link={self.link}, tag={self.tag}, title={self.title}"
-
-    def __dict__(self):
-        # オブジェクトを辞書に変換
-        return {
-            "id": self.id,
-            "link": self.link,
-            "tag": self.tag,
-            "title": self.title
+            "detail":self.detail
         }
