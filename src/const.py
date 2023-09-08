@@ -24,6 +24,13 @@ class UrlOption:
 def sqlite_db():
     return os.path.join(base_path,'song.db')
 
+#ホロメン一覧
+def holoList():
+    holo_path = os.path.join(base_path, "options", "holoMember.csv")
+    df = pd.read_csv(holo_path)
+    word_list = df["member"].tolist()
+    return word_list
+
 # QueryRecord---------------------------------------------
 import sqlite3
 import datetime
