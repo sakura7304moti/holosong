@@ -1,2 +1,5 @@
 src/__pycache__/
 test.ipynb
+options/.ipynb_checkpoints/
+.ipynb_checkpoints/
+result.pickle

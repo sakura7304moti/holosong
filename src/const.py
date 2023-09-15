@@ -24,6 +24,10 @@ class UrlOption:
 def sqlite_db():
     return os.path.join(base_path,'song.db')
 
+#pickleの保存先
+def pickle_path():
+    return os.path.join(base_path,'result.pickle')
+
 #ホロメン一覧
 def holoList():
     holo_path = os.path.join(base_path, "options", "holoMember.csv")
@@ -73,3 +77,59 @@ class SongQueryRecord:
             "songName":self.song_name,
             "detail":self.detail
         }
+    
+class HoloSongAlbum:
+    albumName:str
+    artist:str
+    playlistLink:str
+    date:str
+    imageLink:str
+    
+    def __init__(self,albumName:str,artist:str,playlistLink:str,date:str,imageLink:str):
+        self.albumName = albumName
+        self.artist = artist
+        self.playlistLink = playlistLink
+        self.date = date
+        self.imageLink = imageLink
+        
+    def __dict__(self):
+        return {
+            "albumName":self.albumName,
+            "artist":self.artist,
+            "playlistLink":self.playlistLink,
+            "date":self.date,
+            "imageLink":self.imageLink
+        }
+    
+    def __str__(self):
+        return f"Album Name: {self.albumName}\nArtist: {self.artist}\nPlaylist Link: {self.playlistLink}\nDate: {self.date}\nImage Link: {self.imageLink}"
+
+    
+class HoloSongMusic:
+    musicName:str
+    artist:str
+    albumName:str
+    musicLink:str
+    playlistLink:str
+    imageLink:str
+    
+    def __init__(self,musicName:str,artist:str,albumName:str,musicLink:str,playlistLink:str,imageLink:str):
+        self.musicName = musicName
+        self.artist = artist
+        self.albumName = albumName
+        self.musicLink = musicLink
+        self.playlistLink = playlistLink
+        self.imageLink = imageLink
+        
+    def __dict__(self):
+        return {
+            "musicName":self.musicName,
+            "artist":self.artist,
+            "playlistLink":self.playlistLink,
+            "musicLink":self.musicLink,
+            "playlistLink":self.playlistLink,
+            "imageLink":self.imageLink
+        }
+    
+    def __str__(self):
+        return f"Music Name: {self.musicName}\nArtist: {self.artist}\nAlbum Name: {self.albumName}\nMusic Link: {self.musicLink}\nPlaylist Link: {self.playlistLink}\nImage Link: {self.imageLink}"
