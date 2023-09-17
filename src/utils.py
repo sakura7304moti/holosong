@@ -84,17 +84,18 @@ def get_albums():
                 musics = get_songs(playlist_link)
 
                 time.sleep(0.1)
+                albums.append([
+                    name,
+                    artist,
+                    image_link,
+                    date,
+                    playlist_link,
+                    musics
+                ])
             except Exception as e:
                 print(e)
             
-            albums.append([
-                name,
-                artist,
-                image_link,
-                date,
-                playlist_link,
-                musics
-            ])
+            
             
     with open(result_path, mode="wb") as f:
         pickle.dump(albums, f)
