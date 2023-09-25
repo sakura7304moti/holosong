@@ -5,6 +5,7 @@ import time
 from tqdm import tqdm
 import pickle
 from yt_dlp import YoutubeDL
+import re
 
 urlModel = const.UrlOption()
 cover_url = urlModel.cover
@@ -42,6 +43,28 @@ def get_cover_songs():
         td_detail = td_elements[3].get_text()
         rec = const.SongQueryRecord(td_date,td_member,td_link,td_song_name,td_detail)
         records.append(rec)
+    return records
+
+def get_original_songs():
+    records = []
+    response = requests.get('https://seesaawiki.jp/hololivetv/d/%a5%aa%a5%ea%a5%b8%a5%ca%a5%eb%a5%bd%a5%f3%a5%b0')
+    soup = BeautifulSoup(response.text, 'html.parser')
+    elements = soup.find_all('div',class_="wiki-section-3")
+    for element in elements:
+        text = element.text
+        title = text.splitlines()[0]
+        member_match = re.search(r"メンバー：(.+?)\n", text)
+        if member_match:
+            members = member_match.group(1)
+        date_match = re.search(r"音源公開日：(\d{4}/\d{2}/\d{2})\n", text)
+        if date_match:
+            release_date = date_match.group(1).replace('/','-')
+        a_tags = element.find_all('a', {'class': 'outlink', 'href': True, 'target': '_blank'})
+        youtube_link = [a for a in a_tags if a.text == 'YouTube(MV)']
+        if len(youtube_link) > 0:
+            youtube_url = youtube_link[0]['href']
+            rec = const.SongQueryRecord(release_date,members,youtube_url,title,'')
+            records.append(rec)
     return records
 
 #アルバム情報を取得
