@@ -60,7 +60,7 @@ def get_original_songs():
         if date_match:
             release_date = date_match.group(1).replace('/','-')
         a_tags = element.find_all('a', {'class': 'outlink', 'href': True, 'target': '_blank'})
-        youtube_link = [a for a in a_tags if a.text == 'YouTube(MV)']
+        youtube_link = [a for a in a_tags if 'youtube' in a.text.lower()]
         if len(youtube_link) > 0:
             youtube_url = youtube_link[0]['href']
             rec = const.SongQueryRecord(release_date,members,youtube_url,title,'')
